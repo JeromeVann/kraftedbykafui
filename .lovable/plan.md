@@ -1,58 +1,69 @@
-# Bridal Fans, Flowers & Bridesmaid Gifts Website
+# KraftedbyKafui — Luxury Bridal Accessories & Gifts
 
-## Goal
-Build a polished, mobile-first e-commerce-style website where clients can browse and order bridal fans, flowers, and bridesmaid gifts.
+Build the site to match the attached reference video: an elegant, editorial, ivory-and-gold bridal storefront for Accra, Ghana, with WhatsApp-first ordering.
 
-## Scope for this plan
-- Replace the placeholder homepage with a bridal shop landing page.
-- Create separate routes for each major section (SEO-friendly, SSR-ready).
-- Build a browsable product catalog with sample products for the three categories.
-- Add product detail pages and a working cart (local state).
-- Add an order inquiry / contact form so clients can place orders without Shopify being enabled yet.
-- Style with an elegant, romantic bridal aesthetic using the existing design-token system.
-- Set unique `head()` metadata on every route.
+## Brand and visual direction (from the reference)
 
-## Pages / routes
+- **Wordmark:** `KRAFTED` + `BY` (gold) + `KAFUI`, wide-tracked, all caps serif.
+- **Palette:** ivory / warm cream background (`#FAF7F2`), soft champagne panels (`#F0E6D8`), antique gold (`#B8944F`) for accents and buttons, deep espresso brown for headings, muted taupe for body text.
+- **Type:** elegant high-contrast serif for headings (display), clean humanist sans for body; small caps with wide letter-spacing for eyebrow labels ("OUR STORY", "WHAT WE DO", "CATALOG").
+- **Components:** fully-rounded pill buttons with a gold gradient fill, thin gold outline secondary buttons, white product cards with a soft cream border, generous whitespace, image-first cards.
+- **Layout:** mobile-first single-column that expands to multi-column on desktop; sticky header with wordmark left and a circular hamburger button right.
+
+## Pages
+
 ```text
-/              Home / landing
-/shop          Catalog grid (all products)
-/shop/fans     Bridal fans collection
-/shop/flowers  Flowers collection
-/shop/gifts    Bridesmaid gifts collection
-/about         About the brand
-/contact       Order inquiry / contact form
+/            Home (hero, story, collection preview, services, gallery, CTA)
+/shop        The Collection — full catalog with category filter pills
+/services    What we do
+/gallery     Photo gallery
+/order       Place an order form
+/contact     Contact details + map/info
 ```
 
-## Data model (in-code for now)
-A static product catalog stored in `src/data/products.ts` with fields:
-- id, name, slug, category (fans | flowers | gifts)
-- price, currency, description, image URL, in-stock flag, optional variants
+The header hamburger opens a full-screen overlay menu with these links plus WhatsApp.
 
-## Key features
-1. **Shared layout** in `__root.tsx`: header with navigation, cart drawer trigger, footer.
-2. **Homepage**: hero section, featured collections, best-sellers, trust/quality section.
-3. **Catalog pages**: filterable grid by category, product cards with add-to-cart.
-4. **Product detail**: larger image, description, price, variant selector, add-to-cart.
-5. **Cart drawer**: list items, adjust quantities, remove, show subtotal, "Request order" button.
-6. **Contact / order inquiry**: form pre-filled from cart (name, email, event date, message) submitted to a public server function that stores the inquiry.
-7. **Lovable Cloud**: enable so inquiries can be persisted in a database and an admin can view them.
+## Home page sections (in reference order)
 
-## Design direction
-- Romantic, elegant, minimal bridal aesthetic.
-- Soft neutral palette (ivory, blush, sage, champagne) added as semantic tokens in `src/styles.css`.
-- Serif headings for elegance, sans-serif body for readability.
-- Generous whitespace, rounded cards, subtle shadows.
+1. **Hero** — full-bleed bridal photo, overlay eyebrow `ACCRA · GHANA · NATIONWIDE DELIVERY`, serif title `KraftedbyKafui`, italic subtitle "Luxury Bridal Accessories & Elegant Gifts For Every Occasion", gold `ORDER NOW` pill + outlined `WHATSAPP US` pill with chat icon.
+2. **Our Story** — square gift-box image, eyebrow `OUR STORY`, headline "Details that make the day", copy, link.
+3. **The Collection** — eyebrow `CATALOG`, headline, note that prices are guide prices and customization/quantity/delivery are quoted on request, then filter pills: All · Bridal Accessories · Bridesmaid Fans · Bridal Gift Boxes · Wedding Accessories · Customized Gifts. Below, a grid of product cards: image, gold category label, serif name, description, `FROM GH₵ ###`, gold `ORDER` button.
+4. **Services** — eyebrow `WHAT WE DO`, headline "Services", bordered cards each with a gold outline icon, serif title, short gold rule, description.
+5. **Gallery** — grid of styled photos.
+6. **CTA panel** — champagne panel with gold border: "Planning something special?", copy, `START AN ORDER` + `CONTACT US` buttons.
+7. **Footer** — brand blurb, `EXPLORE` link column, `GET IN TOUCH` with location, phone, WhatsApp and Instagram, each with a gold outline icon.
+
+## Catalog data
+
+Static catalog in `src/data/products.ts` with: id, name, slug, category, priceFrom (GH₵), priceNote (e.g. "each"), description, image. Seeded with the items shown in the reference (bridesmaid fans, bridal hair comb sets, bridesmaid proposal boxes, guest favour parcels, personalised trinket boxes, etc.). Each product's `ORDER` button deep-links to the order form pre-filled with that product.
+
+## Ordering flow
+
+No card checkout. Every `ORDER` button leads to the order form:
+- Name, phone/WhatsApp, email, event date, product(s) of interest, quantity, colour/customization notes, message.
+- Submitting saves the enquiry and sends a confirmation; a secondary "Send on WhatsApp" button opens `wa.me` with a pre-composed message.
+- **Lovable Cloud** is enabled to store enquiries in an `orders` table so nothing is lost.
+
+## Contact details (from the reference)
+
+- JW82+W6J, G Street Teshie-Nungua, Accra, Ghana
+- 059 714 4909 · WhatsApp · @kraftedbykafui
+
+These will be used as placeholders and are easy to change.
+
+## Imagery
+
+Generate bridal-themed photography to match the reference mood: beaded hand fans, satin flat-lays in blush and champagne, pearl-and-gold hair combs, pink and velvet gift boxes with gold plaques, candlelit reception tables. Stored as CDN assets, not committed binaries.
 
 ## Technical notes
-- Use TanStack Router file-based routes; no hash anchors.
-- Use `createServerFn` for the contact/inquiry form submission.
-- Cart state via React context + `useState` (no backend dependency).
-- All product images generated with the image tool to match the bridal theme.
-- Keep components in `src/components/` and data in `src/data/`.
 
-## Out of scope for now
-- Real payment checkout (Stripe/Paddle are not suited for physical products; Shopify can be enabled later when the user is ready).
-- Admin dashboard for managing inquiries (can be added after Cloud is enabled).
+- TanStack Router file routes, one file per page, each with its own `head()` metadata (title, description, og tags).
+- Design tokens (ivory, champagne, gold, espresso, taupe) added to `src/styles.css` as semantic oklch variables; no hardcoded colour utilities.
+- Google Fonts loaded via a `<link>` in `src/routes/__root.tsx`.
+- Header/footer/menu overlay live in `__root.tsx` around `<Outlet />`.
+- Order submission uses a `createServerFn` writing to Cloud.
+- Favicon derived from the KBK monogram.
 
-## Next step after approval
-Enable Lovable Cloud, then build the routes, components, data, and inquiry form.
+## Not included
+
+- Online card payment / checkout. Ordering is enquiry + WhatsApp, matching the reference. Shopify can be added later if real checkout is wanted.
