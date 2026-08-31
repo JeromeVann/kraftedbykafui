@@ -6,9 +6,9 @@ import { submitInquiry } from "@/lib/inquiries.functions";
 import { products, whatsappLink, currency } from "@/data/products";
 
 export const Route = createFileRoute("/order")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    item: typeof search['item'] === "string" ? (search['item'] as string) : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { item?: string } =>
+    typeof search['item'] === "string" ? { item: search['item'] as string } : {},
+
   head: () => ({
     meta: [
       { title: "Place an Order — KraftedbyKafui Bridal Atelier" },
