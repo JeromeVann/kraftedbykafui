@@ -11,6 +11,10 @@ node_modules
 dist
 *.local
 
+# Source photography. Kept out of the repo and out of the build — anything
+# under public/ is copied verbatim into dist/.
+public/resources/
+
 # Local env files
 .env
 .env.*
