@@ -1,5 +1,5 @@
 import { AppLink } from "@/components/app-link";
-import storyImage from "@/assets/story-giftbox.jpg";
+import atelierImage from "@/assets/atelier-orchid-fan.jpg";
 import receptionImage from "@/assets/gallery-reception.jpg";
 
 const values = [
@@ -35,11 +35,11 @@ export function AboutPage() {
 
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2">
         <img
-          src={storyImage}
-          alt="Blush gift box tied with a satin ribbon"
+          src={atelierImage}
+          alt="A forest green raffia fan edged with yellow orchids placed one by one, resting on KraftedbyKafui tissue"
           loading="lazy"
-          width={1024}
-          height={1024}
+          width={787}
+          height={1400}
           className="aspect-square w-full object-cover"
         />
         <div>

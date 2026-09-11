@@ -1,6 +1,6 @@
 import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import { AppLink } from "@/components/app-link";
-import { whatsappLink } from "@/data/products";
+import { WHATSAPP_DISPLAY, whatsappLink } from "@/data/products";
 
 export function SiteFooter() {
   return (
@@ -45,8 +45,13 @@ export function SiteFooter() {
             </li>
             <li className="flex items-center gap-3">
               <Phone className="size-4 text-gold" />
-              <a href={whatsappLink("Hello Kafui!")} className="hover:text-gold">
-                +233 20 123 4567
+              <a
+                href={whatsappLink(
+                  "Hello Kafui! I found you through your website and I'd love to hear more about your hand-made pieces.",
+                )}
+                className="hover:text-gold"
+              >
+                {WHATSAPP_DISPLAY}
               </a>
             </li>
             <li className="flex items-center gap-3">

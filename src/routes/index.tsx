@@ -1,18 +1,24 @@
 import { AppLink } from "@/components/app-link";
 import { ProductCard } from "@/components/product-card";
-import { categories, products } from "@/data/products";
-import heroImage from "@/assets/hero-bride.jpg";
-import storyImage from "@/assets/story-giftbox.jpg";
+import { categories, products, type Category } from "@/data/products";
+import heroImage from "@/assets/hero-bridal-party.jpg";
+import storyImage from "@/assets/story-monogram-fan.jpg";
 import receptionImage from "@/assets/gallery-reception.jpg";
-import fansImage from "@/assets/product-fans.jpg";
-import bouquetImage from "@/assets/product-bouquet.jpg";
-import proposalImage from "@/assets/product-proposalbox.jpg";
+import fansImage from "@/assets/category-fans.jpg";
+import flowersImage from "@/assets/product-calla-posy.jpg";
+import giftsImage from "@/assets/category-gifts.jpg";
 
 const categoryImages = {
   fans: fansImage,
-  flowers: bouquetImage,
-  gifts: proposalImage,
+  flowers: flowersImage,
+  gifts: giftsImage,
 } as const;
+
+const categoryAlt: Record<Category, string> = {
+  fans: "Burgundy wooden lace fans finished with dried blooms and satin bows",
+  flowers: "Bride holding white calla lilies bound with pearl organza ribbon",
+  gifts: "Jute tote bags monogrammed for each bridesmaid",
+};
 
 const services = [
   {
@@ -40,10 +46,11 @@ export function HomePage() {
       <section className="relative">
         <img
           src={heroImage}
-          alt="Bride holding an ornate gold beaded hand fan"
-          width={1024}
-          height={1024}
-          className="h-[78vh] min-h-[520px] w-full object-cover object-[center_25%]"
+          alt="A bride and her seven bridesmaids in olive green, each holding a white posy"
+          width={1284}
+          height={729}
+          fetchPriority="high"
+          className="h-[60vh] min-h-[400px] w-full object-cover object-[46%_20%] md:h-[78vh] md:min-h-[520px]"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-espresso/35 px-5 text-center">
           <p className="text-[0.65rem] uppercase tracking-[0.35em] text-background/85">
@@ -94,11 +101,11 @@ export function HomePage() {
         </div>
         <img
           src={storyImage}
-          alt="Blush gift box tied with a satin ribbon"
+          alt="Navy raffia fan finished with the gold KraftedbyKafui monogram and a grosgrain bow"
           loading="lazy"
-          width={1024}
-          height={1024}
-          className="aspect-square w-full object-cover"
+          width={933}
+          height={1400}
+          className="aspect-square w-full object-cover object-[center_10%]"
         />
       </section>
 
@@ -115,7 +122,7 @@ export function HomePage() {
                 <div className="overflow-hidden">
                   <img
                     src={categoryImages[c.id]}
-                    alt={c.label}
+                    alt={categoryAlt[c.id]}
                     loading="lazy"
                     width={1024}
                     height={1024}

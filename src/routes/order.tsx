@@ -27,7 +27,7 @@ export function OrderPage() {
 
   const summary = () =>
     [
-      `Hello KraftedbyKafui! I'd like to order:`,
+      `Hello Kafui! I'd love to order the following:`,
       selected
         ? `Item: ${selected.name} (${currency(selected.price)})`
         : form.item
